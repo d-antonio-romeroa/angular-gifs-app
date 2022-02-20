@@ -7,7 +7,14 @@ import { Gif, SearchGifsResponse } from '../interfaces/gifs.interface';
 })
 export class GifsService {
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient){
+    // if(localStorage.getItem('historial')){
+    //   this._historial = JSON.parse( localStorage.getItem('historial')! );
+
+    // }
+    this._historial = JSON.parse( localStorage.getItem('historial')!) || [] ;
+
+  }
 
   private _historial: string[] = [];
   private _apiKey: string = '6VqF6JW0KcdXwmM4ytotEngefqY10GZr';
@@ -30,6 +37,8 @@ export class GifsService {
     if (! this._historial.includes(query)){
       this._historial.unshift(query);
       this._historial = this._historial.splice(0,10);
+
+      localStorage.setItem('historial', JSON.stringify(this._historial))
 
     }
 
