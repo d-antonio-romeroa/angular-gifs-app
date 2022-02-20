@@ -11,6 +11,9 @@ export class GifsService {
   private _historial: string[] = [];
   private _apiKey: string = '6VqF6JW0KcdXwmM4ytotEngefqY10GZr';
 
+  // TODO: cambiar any por su tipo correspondiente
+  public resultados: any[] = [];
+
   get historial() {
     return [...this._historial];
   }
@@ -29,11 +32,11 @@ export class GifsService {
 
     }
 
-    this.http.get('https://api.giphy.com/v1/gifs/search?api_key=6VqF6JW0KcdXwmM4ytotEngefqY10GZr&q=dragon ball z&limit=10')
+    this.http.get(`https://api.giphy.com/v1/gifs/search?api_key=${this.apiKey}&q=${query}&limit=10`)
           .subscribe((resp: any) => {
             console.log(resp);
+            this.resultados = resp.data
           })
 
-    console.log(this._historial);
   }
 }
